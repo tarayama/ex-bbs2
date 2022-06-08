@@ -4,10 +4,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/student
     username: postgres
     password: postgres
-logging:
-  level:
-    org:
-      springframework:
-        jdbc:
-          core: TRACE
-          
