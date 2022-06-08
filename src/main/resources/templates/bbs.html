@@ -4,7 +4,36 @@
         <meta charset="UTF-8" />
         <title>Insert title here</title>
     </head>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
     <body>
+        <form
+            th:action="@{/bbs/createArticle}"
+            method="post"
+            th:object="${articleForm}"
+        >
+            <div th:errors="*{name}" class="error">エラー</div>
+            <label>
+                投稿者名：
+                <input type="text" name="name" th:field="*{name}" />
+            </label>
+            <br />
+            <div th:errors="*{content}" class="error">エラー</div>
+            <label>
+                投稿内容：
+                <textarea
+                    name="content"
+                    cols="30"
+                    rows="10"
+                    th:field="*{content}"
+                ></textarea>
+            </label>
+            <br />
+            <button>記事投稿</button>
+        </form>
         <div th:each="article : ${articleList}">
             <p>投稿者名：<span th:text="${article.name}"></span></p>
             <p>投稿内容：</p>
