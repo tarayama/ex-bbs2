@@ -53,7 +53,45 @@
                 <pre th:text="${comment.content}"></pre>
                 <br />
             </div>
+            <form
+                th:action="@{/bbs/insertComment}"
+                method="post"
+                th:object="${commentForm}"
+            >
+                <label for="name">名前：</label>
+                <span
+                    th:if="${article.id == errorArticleID}"
+                    th:errors="*{name}"
+                    style="color: red"
+                ></span
+                ><br />
+                <input type="text" name="name" id="name" th:field="*{name}" />
+                <br />
 
+                <label for="content">コメント：</label>
+
+                <span
+                    th:if="${article.id == errorArticleID}"
+                    th:errors="*{content}"
+                    style="color: red"
+                ></span
+                ><br />
+                <textarea
+                    name="content"
+                    id="content"
+                    cols="30"
+                    rows="10"
+                    th:field="*{content}"
+                ></textarea>
+
+                <input
+                    type="hidden"
+                    name="articleId"
+                    th:value="${article.id}"
+                />
+                <br />
+                <button type="submit">コメント投稿</button>
+            </form>
             <hr />
         </div>
     </body>
