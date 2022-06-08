@@ -1,94 +1,94 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Insert title here</title>
-    </head>
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
-    <body>
-        <form
-            th:action="@{/bbs/createArticle}"
-            method="post"
-            th:object="${articleForm}"
-        >
-            <div th:errors="*{name}" class="error">エラー</div>
-            <label>
-                投稿者名：
-                <input type="text" name="name" th:field="*{name}" />
-            </label>
-            <br />
-            <div th:errors="*{content}" class="error">エラー</div>
-            <label>
-                投稿内容：
-                <textarea
-                    name="content"
-                    cols="30"
-                    rows="10"
-                    th:field="*{content}"
-                ></textarea>
-            </label>
-            <br />
-            <button>記事投稿</button>
-        </form>
-        <div th:each="article : ${articleList}">
-            <p>投稿者名：<span th:text="${article.name}"></span></p>
-            <p>投稿内容：</p>
-            <pre th:text="${article.content}"></pre>
-            <br />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+  <body>
+    <form
+      th:action="@{/bbs/createArticle}"
+      method="post"
+      th:object="${articleForm}"
+    >
+      <div th:errors="*{name}" class="error">エラー</div>
+      <label>
+        投稿者名：
+        <input type="text" name="name" th:field="*{name}" />
+      </label>
+      <br />
+      <div th:errors="*{content}" class="error">エラー</div>
+      <label>
+        投稿内容：
+        <textarea
+          name="content"
+          cols="30"
+          rows="10"
+          th:field="*{content}"
+        ></textarea>
+      </label>
+      <br />
+      <button>記事投稿</button>
+    </form>
+    <div th:each="article : ${articleList}">
+      <p>投稿者名：<span th:text="${article.name}"></span></p>
+      <p>投稿内容：</p>
+      <pre th:text="${article.content}"></pre>
+      <form th:action="@{/bbs/delete}" method="post">
+        <input type="hidden" name="articleId" th:value="${article.id}" />
+        <button>記事削除</button>
+      </form>
+      <br />
 
-            <div
-                th:unless="${comment == null}"
-                th:each="comment : ${article.commentList}"
-            >
-                <p>コメント者名：<span th:text="${comment.name}"></span></p>
-                <p>コメント内容：</p>
-                <pre th:text="${comment.content}"></pre>
-                <br />
-            </div>
-            <form
-                th:action="@{/bbs/insertComment}"
-                method="post"
-                th:object="${commentForm}"
-            >
-                <label for="name">名前：</label>
-                <span
-                    th:if="${article.id == errorArticleID}"
-                    th:errors="*{name}"
-                    style="color: red"
-                ></span
-                ><br />
-                <input type="text" name="name" id="name" th:field="*{name}" />
-                <br />
+      <div
+        th:unless="${comment == null}"
+        th:each="comment : ${article.commentList}"
+      >
+        <p>コメント者名：<span th:text="${comment.name}"></span></p>
+        <p>コメント内容：</p>
+        <pre th:text="${comment.content}"></pre>
+        <br />
+      </div>
+      <form
+        th:action="@{/bbs/insertComment}"
+        method="post"
+        th:object="${commentForm}"
+      >
+        <label for="name">名前：</label>
+        <span
+          th:if="${article.id == errorArticleID}"
+          th:errors="*{name}"
+          style="color: red"
+        ></span
+        ><br />
+        <input type="text" name="name" id="name" th:field="*{name}" />
+        <br />
 
-                <label for="content">コメント：</label>
+        <label for="content">コメント：</label>
 
-                <span
-                    th:if="${article.id == errorArticleID}"
-                    th:errors="*{content}"
-                    style="color: red"
-                ></span
-                ><br />
-                <textarea
-                    name="content"
-                    id="content"
-                    cols="30"
-                    rows="10"
-                    th:field="*{content}"
-                ></textarea>
+        <span
+          th:if="${article.id == errorArticleID}"
+          th:errors="*{content}"
+          style="color: red"
+        ></span
+        ><br />
+        <textarea
+          name="content"
+          id="content"
+          cols="30"
+          rows="10"
+          th:field="*{content}"
+        ></textarea>
 
-                <input
-                    type="hidden"
-                    name="articleId"
-                    th:value="${article.id}"
-                />
-                <br />
-                <button type="submit">コメント投稿</button>
-            </form>
-            <hr />
-        </div>
-    </body>
+        <input type="hidden" name="articleId" th:value="${article.id}" />
+        <br />
+        <button type="submit">コメント投稿</button>
+      </form>
+      <hr />
+    </div>
+  </body>
 </html>
