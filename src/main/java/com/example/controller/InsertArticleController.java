@@ -20,11 +20,6 @@ public class InsertArticleController {
 	@Autowired
 	private ArticleRepository articleRepository;
 	
-	@ModelAttribute
-	public ArticleForm setUpForm() {
-		return new ArticleForm();
-	}
-	
 	@RequestMapping("/createArticle")
 	public String createArticle(
 			@Validated ArticleForm articleForm,
