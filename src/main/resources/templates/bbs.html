@@ -38,6 +38,10 @@
             <p>投稿者名：<span th:text="${article.name}"></span></p>
             <p>投稿内容：</p>
             <pre th:text="${article.content}"></pre>
+            <form th:action="@{/ex-bbs/delete}" method="post">
+        <input type="hidden" name="articleId" th:value="${article.id}" />
+        <button>記事削除</button>
+      </form>
             <br />
 
             <div
